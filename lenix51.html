@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LENIX51</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Rajdhani:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#050508;color:#fff;font-family:'Rajdhani',sans-serif;overflow-x:hidden}
+.particles{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;overflow:hidden}
+.particle{position:absolute;width:1.5px;height:1.5px;border-radius:50%;animation:rise linear infinite;opacity:0}
+@keyframes rise{0%{opacity:0;transform:translateY(100vh)}10%{opacity:.8}90%{opacity:.8}100%{opacity:0;transform:translateY(-5vh)}}
+.content{position:relative;z-index:1}
+.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:2rem;position:relative}
+.hero::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:800px;height:800px;background:radial-gradient(circle,rgba(57,255,20,.05) 0%,transparent 60%);border-radius:50%;animation:breathe 6s ease-in-out infinite}
+@keyframes breathe{0%,100%{transform:translate(-50%,-50%) scale(1);opacity:.4}50%{transform:translate(-50%,-50%) scale(1.4);opacity:.8}}
+.title{font-family:'Orbitron',sans-serif;font-size:clamp(5rem,15vw,12rem);font-weight:900;letter-spacing:.12em;line-height:1;background:linear-gradient(135deg,#39ff14,#00f0ff,#bf00ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;filter:drop-shadow(0 0 40px rgba(57,255,20,.3)) drop-shadow(0 0 80px rgba(0,240,255,.15));animation:appear 1.8s cubic-bezier(.16,1,.3,1) both}
+@keyframes appear{0%{opacity:0;transform:scale(.7) translateY(40px);letter-spacing:.6em;filter:blur(10px)}100%{opacity:1;transform:scale(1) translateY(0);letter-spacing:.12em;filter:drop-shadow(0 0 40px rgba(57,255,20,.3)) drop-shadow(0 0 80px rgba(0,240,255,.15))}}
+.tagline{font-size:clamp(1.1rem,2.5vw,1.6rem);font-weight:300;color:rgba(255,255,255,.45);margin-top:1.8rem;letter-spacing:.08em;line-height:1.7;max-width:500px;animation:fade 2s ease .6s both}
+@keyframes fade{from{opacity:0;transform:translateY(15px)}to{opacity:1;transform:translateY(0)}}
+.scroll-arrow{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);animation:bob 2s ease-in-out infinite,fade 2s ease 1.2s both}
+.scroll-arrow svg{width:28px;height:28px;stroke:rgba(255,255,255,.2);fill:none;stroke-width:2}
+@keyframes bob{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(8px)}}
+.features{max-width:1100px;margin:0 auto;padding:4rem 2rem 6rem}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.5rem}
+.card{padding:2rem;border:1px solid rgba(255,255,255,.04);border-radius:10px;background:rgba(255,255,255,.02);transition:all .4s;backdrop-filter:blur(5px);cursor:pointer;position:relative}
+.card:hover{border-color:rgba(57,255,20,.15);transform:translateY(-5px);box-shadow:0 15px 50px rgba(0,0,0,.5)}
+.card.active{border-color:rgba(57,255,20,.25);box-shadow:0 15px 50px rgba(0,0,0,.5),0 0 30px rgba(57,255,20,.05)}
+.card-header{display:flex;align-items:center;gap:.8rem}
+.card-icon{font-size:2rem}
+.card-name{font-family:'Orbitron',sans-serif;font-size:1.1rem;font-weight:700;color:rgba(255,255,255,.85)}
+.card-arrow{margin-left:auto;font-size:1.2rem;color:rgba(255,255,255,.15);transition:transform .3s,color .3s}
+.card.active .card-arrow{transform:rotate(180deg);color:rgba(57,255,20,.5)}
+.card-short{font-size:1rem;line-height:1.6;color:rgba(255,255,255,.4);font-weight:400;margin-top:.8rem}
+.card-detail{max-height:0;overflow:hidden;transition:max-height .5s cubic-bezier(.4,0,.2,1),opacity .4s,margin .3s;opacity:0;margin-top:0}
+.card.active .card-detail{max-height:500px;opacity:1;margin-top:1.2rem}
+.detail-divider{height:1px;background:linear-gradient(90deg,rgba(57,255,20,.15),transparent);margin-bottom:1rem}
+.detail-text{font-size:.95rem;line-height:1.7;color:rgba(255,255,255,.5)}
+.detail-text strong{color:rgba(255,255,255,.7)}
+.detail-mods{margin-top:.8rem;display:flex;flex-wrap:wrap;gap:.5rem}
+.mod-tag{padding:.3rem .8rem;border-radius:3px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);font-family:'Orbitron',sans-serif;font-size:.65rem;font-weight:700;color:rgba(255,255,255,.35);letter-spacing:.08em}
+.cta{text-align:center;padding:4rem 2rem 5rem;position:relative}
+.cta::before{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:400px;height:400px;background:radial-gradient(circle,rgba(57,255,20,.04) 0%,transparent 70%);border-radius:50%}
+.cta>*{position:relative;z-index:1}
+.btn{display:inline-block;padding:1.1rem 3.5rem;border:1px solid rgba(57,255,20,.4);border-radius:4px;background:rgba(57,255,20,.06);color:#39ff14;font-family:'Orbitron',sans-serif;font-size:1rem;font-weight:700;letter-spacing:.15em;text-decoration:none;text-transform:uppercase;transition:all .35s;position:relative;overflow:hidden}
+.btn::after{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(57,255,20,.15),transparent);transition:left .5s}
+.btn:hover{background:rgba(57,255,20,.15);border-color:#39ff14;box-shadow:0 0 40px rgba(57,255,20,.2);transform:translateY(-3px) scale(1.03)}
+.btn:hover::after{left:100%}
+.ip-box{display:inline-block;margin-left:1.5rem;padding:1.1rem 2.5rem;border:1px solid rgba(255,255,255,.08);border-radius:4px;background:rgba(255,255,255,.03);font-family:'Orbitron',sans-serif;font-size:1rem;font-weight:700;color:rgba(255,255,255,.5);letter-spacing:.1em;cursor:pointer;transition:all .3s;vertical-align:top}
+.ip-box:hover{border-color:rgba(0,240,255,.3);color:#00f0ff;box-shadow:0 0 20px rgba(0,240,255,.1)}
+.ip-box small{display:block;font-family:'Rajdhani',sans-serif;font-size:.65rem;font-weight:300;color:rgba(255,255,255,.25);margin-top:4px;letter-spacing:.12em}
+.cta-row{display:flex;align-items:center;justify-content:center;gap:1.5rem;flex-wrap:wrap}
+.version{margin-top:2rem;font-size:.85rem;color:rgba(255,255,255,.15);letter-spacing:.1em}
+@media(max-width:600px){.grid{grid-template-columns:1fr}.cta-row{flex-direction:column;gap:1rem}.ip-box{margin-left:0}}
+</style>
+</head>
+<body>
+<div class="particles" id="p"></div>
+<div class="content">
+
+  <section class="hero">
+    <h1 class="title">LENIX51</h1>
+    <p class="tagline">Механизмы. Транспорт. Превращения.<br>Мобы стали умнее. Ты готов?</p>
+    <div class="scroll-arrow"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></div>
+  </section>
+
+  <section class="features">
+    <div class="grid">
+
+      <div class="card" onclick="toggle(this)">
+        <div class="card-header"><span class="card-icon">⚙️</span><h3 class="card-name">Create</h3><span class="card-arrow">▼</span></div>
+        <p class="card-short">Конвейеры, поезда, прессы и автоматические фабрики. Построй что угодно.</p>
+        <div class="card-detail">
+          <div class="detail-divider"></div>
+          <p class="detail-text">Мод <strong>Create</strong> добавляет сотни механических блоков: шестерёнки, валы, ремни, воронки, дробилки, миксеры, механические прессы и многое другое. Строй полностью автоматизированные фабрики по переработке ресурсов, прокладывай железные дороги с настоящими поездами, создавай летающие машины из поршней. Вся инженерия работает на вращательной энергии — от водяных колёс до паровых двигателей.</p>
+          <div class="detail-mods"><span class="mod-tag">CREATE 0.5.1.J</span></div>
+        </div>
+      </div>
+
+      <div class="card" onclick="toggle(this)">
+        <div class="card-header"><span class="card-icon">🚗</span><h3 class="card-name">Транспорт</h3><span class="card-arrow">▼</span></div>
+        <p class="card-short">Самолёты, машины, танки. Реалистичная физика и десятки моделей.</p>
+        <div class="card-detail">
+          <div class="detail-divider"></div>
+          <p class="detail-text">Мод <strong>Immersive Vehicles</strong> с официальным паком моделей добавляет полноценный транспорт: легковые машины, грузовики, мотоциклы, самолёты, вертолёты, танки и лодки. У каждого транспорта реалистичная физика — нужно топливо, есть панель приборов, работает руль и газ. Создавай дороги, аэродромы и гаражи. Исследуй мир на скорости!</p>
+          <div class="detail-mods"><span class="mod-tag">IMMERSIVE VEHICLES 22.18.1</span><span class="mod-tag">MTS OFFICIAL PACK V28.2</span></div>
+        </div>
+      </div>
+
+      <div class="card" onclick="toggle(this)">
+        <div class="card-header"><span class="card-icon">🔮</span><h3 class="card-name">Origins</h3><span class="card-arrow">▼</span></div>
+        <p class="card-short">Выбери расу — летай, дыши под водой, телепортируйся. Каждый уникален.</p>
+        <div class="card-detail">
+          <div class="detail-divider"></div>
+          <p class="detail-text">При первом входе на сервер ты выбираешь <strong>происхождение</strong> — расу с уникальными способностями и слабостями. <strong>Фантом</strong> — летает и проходит сквозь блоки ночью, но горит на солнце. <strong>Мерлинг</strong> — дышит под водой, но задыхается на суше. <strong>Эндериан</strong> — телепортируется, но получает урон от воды. <strong>Арахнид</strong> — лазает по стенам. И другие! Можно сменить происхождение с помощью Сферы Происхождения.</p>
+          <div class="detail-mods"><span class="mod-tag">ORIGINS FORGE 1.10.0.2</span><span class="mod-tag">CAELUS API</span></div>
+        </div>
+      </div>
+
+      <div class="card" onclick="toggle(this)">
+        <div class="card-header"><span class="card-icon">🦊</span><h3 class="card-name">Identity</h3><span class="card-arrow">▼</span></div>
+        <p class="card-short">Убей моба — стань им. Крипер, дракон, летучая мышь. Их способности — твои.</p>
+        <div class="card-detail">
+          <div class="detail-divider"></div>
+          <p class="detail-text">Мод <strong>Identity</strong> позволяет превращаться в любого моба, которого ты убил. Стань <strong>криперов</strong> — и взрывайся. <strong>Летучей мышью</strong> — и летай по пещерам. <strong>Курицей</strong> — и медленно планируй. <strong>Эндерменом</strong> — и телепортируйся. Каждый моб даёт свои способности: размер, скорость, полёт, дыхание под водой. Переключайся между формами через меню.</p>
+          <div class="detail-mods"><span class="mod-tag">IDENTITY 2.7.4</span><span class="mod-tag">GECKOLIB 4.7.2</span></div>
+        </div>
+      </div>
+
+      <div class="card" onclick="toggle(this)">
+        <div class="card-header"><span class="card-icon">🧠</span><h3 class="card-name">Умные мобы</h3><span class="card-arrow">▼</span></div>
+        <p class="card-short">Зомби ломают стены. Скелеты снайперят. Криперы подрывают базу. Удачи.</p>
+        <div class="card-detail">
+          <div class="detail-divider"></div>
+          <p class="detail-text">Мод <strong>Enhanced AI</strong> полностью переделывает поведение мобов. <strong>Зомби</strong> научились копать блоки и ломать стены, чтобы добраться до тебя. <strong>Криперы</strong> подрывают фундамент построек. <strong>Скелеты</strong> стреляют точнее и с большей дистанции. Мобы видят тебя на 24–28 блоков, плавают в 2.5 раза быстрее, мгновенно реагируют на игрока. Обычные укрытия больше не спасут — нужна настоящая крепость.</p>
+          <div class="detail-mods"><span class="mod-tag">ENHANCED AI 2.4.2</span><span class="mod-tag">INSANELIB 1.12.1</span></div>
+        </div>
+      </div>
+
+      <div class="card" onclick="toggle(this)">
+        <div class="card-header"><span class="card-icon">⚔️</span><h3 class="card-name">Выживание</h3><span class="card-arrow">▼</span></div>
+        <p class="card-short">Без правил. Без привата. Строй, воюй, объединяйся. Свобода действий.</p>
+        <div class="card-detail">
+          <div class="detail-divider"></div>
+          <p class="detail-text">Сервер в режиме <strong>чистого выживания</strong> без плагинов защиты. Нет привата, нет телепортов, нет магазинов. Всё что ты построишь — можно разрушить. Всё что ты найдёшь — могут украсть. Объединяйся с друзьями, стройте укрепления, торгуйте ресурсами, воюйте за территорию. <strong>13 модов</strong> делают каждый аспект игры глубже — от механизмов до транспорта и боёвки.</p>
+          <div class="detail-mods"><span class="mod-tag">FORGE 1.20.1</span><span class="mod-tag">13 МОДОВ</span></div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="cta">
+    <div class="cta-row">
+      <a href="https://disk.yandex.ru/d/XmXiZyRc-cIxZA" target="_blank" class="btn">Скачать сборку</a>
+      <div class="ip-box" onclick="navigator.clipboard.writeText('38.244.214.254');this.querySelector('small').textContent='СКОПИРОВАНО!'">
+        38.244.214.254
+        <small>НАЖМИ ЧТОБЫ СКОПИРОВАТЬ</small>
+      </div>
+    </div>
+    <p class="version">Forge 1.20.1 · 13 модов</p>
+  </section>
+
+</div>
+<script>
+function toggle(card){
+  const wasActive=card.classList.contains('active');
+  document.querySelectorAll('.card').forEach(c=>c.classList.remove('active'));
+  if(!wasActive)card.classList.add('active');
+}
+const c=document.getElementById('p');for(let i=0;i<30;i++){const d=document.createElement('div');d.className='particle';d.style.left=Math.random()*100+'%';d.style.animationDuration=(8+Math.random()*12)+'s';d.style.animationDelay=Math.random()*8+'s';d.style.background=['#39ff14','#00f0ff','#bf00ff'][Math.floor(Math.random()*3)];c.appendChild(d)}
+const o=new IntersectionObserver(e=>{e.forEach(e=>{if(e.isIntersecting){e.target.style.opacity='1';e.target.style.transform='translateY(0)'}})},{threshold:.15});
+document.querySelectorAll('.card,.cta-row').forEach(el=>{el.style.opacity='0';el.style.transform='translateY(25px)';el.style.transition='opacity .5s ease,transform .5s ease';o.observe(el)});
+</script>
+</body>
+</html>
